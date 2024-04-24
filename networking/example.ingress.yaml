@@ -13,6 +13,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: svc-next-gen
+                name: my-app-nodeapp
                 port:
                   number: 3000

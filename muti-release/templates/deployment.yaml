@@ -40,7 +40,7 @@ metadata:
     release: {{ $.Release.Name }}
 spec:
   hosts:
-    - "*"
+    - {{ $.Values.gatewayHost }}  # Replace this with your gateway host
   http:
     - match:
         - headers:

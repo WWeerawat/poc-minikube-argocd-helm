@@ -31,8 +31,8 @@ spec:
              containerPort: 80
              protocol: TCP
 ---
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
  name: routerule-{{ .name }}
  labels:

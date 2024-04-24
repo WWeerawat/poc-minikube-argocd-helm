@@ -14,6 +14,8 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  const name = process.env.NAME || 'World';
-  res.send(`Hello ${name}! This is pod ${podName}.`);
+  const appVersion = process.env.APP_VERSION || 'unknown';
+  res.send(
+    `Hello from version ${appVersion} This is pod ${podName}.`
+  );
 });

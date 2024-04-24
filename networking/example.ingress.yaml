@@ -9,10 +9,10 @@ spec:
     - host: hello-world.info
       http:
         paths:
-          - path: /
+          - path: /v1
             pathType: Prefix
             backend:
               service:
-                name: my-app-nodeapp
+                name: svc-next-gen
                 port:
                   number: 3000

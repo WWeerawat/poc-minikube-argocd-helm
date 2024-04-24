@@ -1,0 +1,53 @@
+{{- range .Values.versions }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: svc-{{ .name }}
+ labels:
+   app: {{ $.Values.app.name }}
+   version: {{ .name }}
+   release: {{ $.Release.Name }}
+spec:
+ replicas: {{ $.Values.replicaCount }}
+ selector:
+   matchLabels:
+       app: {{ $.Values.app.name }}
+       version: {{ .name }}
+       release: {{ $.Release.Name }}
+ template:
+   metadata:
+     labels:
+       app: {{ $.Values.app.name }}
+       version: {{ .name }}
+       release: {{ $.Release.Name }}
+   spec:
+     containers:
+       - name: name
+         image: "{{ .image.repository }}:{{ .image.tag }}"
+         imagePullPolicy: IfNotPresent
+         ports:
+           - name: http
+             containerPort: 80
+             protocol: TCP
+---
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+ name: routerule-{{ .name }}
+ labels:
+   app: {{ $.Values.app.name }}
+   release: {{ $.Release.Name }}
+spec:
+ destination:
+   name: {{ $.Values.app.name }}-clusterIP
+ match:
+   request:
+     headers:
+       version:
+         exact: {{ .name }}
+ precedence: 2
+ route:
+ - labels:
+     version: {{ .name }}
+{{ end }}

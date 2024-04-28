@@ -21,3 +21,9 @@ docker-build-and-push:
 
 apply-app1:
 	kubectl apply -f ./argo-app/app1.yaml
+
+apply-app2:
+	kubectl apply -f ./argo-app/app2.yaml
+
+apply-app-grp:
+	kubectl apply -f ./argo-app/application-group.yaml

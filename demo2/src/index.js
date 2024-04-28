@@ -14,11 +14,9 @@ app.get('/', (req, res) => {
   // Get pod name from environment variable (if running in Kubernetes)
   const podName = process.env.HOSTNAME || 'localhost';
 
-  // Log pod name and version
-  console.log(`Pod Name: ${podName}`);
-  console.log(`Version: ${version}`);
-
-  res.send('Hello, World!');
+  res.send(
+    `Hello, World! \nPod Name: ${podName}\nVersion: ${version}`
+  );
 });
 
 app.listen(port, () => {

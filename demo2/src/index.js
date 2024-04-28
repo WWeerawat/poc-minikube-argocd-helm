@@ -1,4 +1,3 @@
-// index.js
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,8 +15,10 @@ async function getArgoCDApplications() {
     const deployments = response.body.items;
     console.log('ArgoCD Deployments:');
     console.log(deployments);
+    return deployments;
   } catch (error) {
     console.error('Error getting ArgoCD deployments:', error);
+    throw error;
   }
 }
 
@@ -29,11 +30,13 @@ async function getServices(namespace) {
     const services = response.body.items;
     console.log(`Services in namespace ${namespace}:`);
     console.log(services);
+    return services;
   } catch (error) {
     console.error(
       `Error getting services in namespace ${namespace}:`,
       error
     );
+    throw error;
   }
 }
 
@@ -43,25 +46,31 @@ async function getDeployments(namespace) {
     const deployments = response.body.items;
     console.log(`Deployments in namespace ${namespace}:`);
     console.log(deployments);
+    return deployments;
   } catch (error) {
     console.error(
       `Error getting deployments in namespace ${namespace}:`,
       error
     );
+    throw error;
   }
 }
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   res.send('Hello, World!');
+
+  try {
+    // Fetch and log ArgoCD applications
+    await getArgoCDApplications();
+
+    // Fetch and log services and deployments in the default namespace
+    await getServices('default');
+    await getDeployments('default');
+  } catch (error) {
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-
-  // Fetch and log ArgoCD applications
-  getArgoCDApplications();
-
-  // Fetch and log services and deployments in the default namespace
-  getServices('default');
-  getDeployments('default');
 });

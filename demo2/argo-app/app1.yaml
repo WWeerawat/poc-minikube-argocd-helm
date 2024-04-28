@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-nodejs-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/WWeerawat/poc-minikube-argocd-helm' # Update this with your Git repository
+    chart: demo2/helm-chart/app1 # Name of your Helm chart
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

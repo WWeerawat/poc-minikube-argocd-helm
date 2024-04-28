@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationGroup
+metadata:
+  name: my-service-group
+spec:
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: default
+  targets:
+    - name: my-service-blue
+    - name: my-service-green

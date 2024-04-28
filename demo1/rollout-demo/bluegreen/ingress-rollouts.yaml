@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bluegreen-demo
+  annotations:
+    ingress.kubernetes.io/proxy-body-size: 100M
+    kubernetes.io/ingressClassName: nginx
+    ingress.kubernetes.io/app-root: /
+spec:
+  rules:
+    - host: '*.hello-world.info'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-nodeapp
+                port:
+                  number: 3000
+    - host: 'staging.hello-world.info'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-nodeapp-preview
+                port:
+                  number: 3000
+
+---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: bluegreen-demo-preview
+#   annotations:
+#     ingress.kubernetes.io/proxy-body-size: 100M
+#     kubernetes.io/ingressClassName: nginx
+#     ingress.kubernetes.io/app-root: /
+# spec:
+#   rules:
+#     - host: 'staging.hello-world.info'
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: bluegreen-demo-preview
+#                 port:
+#                   number: 80

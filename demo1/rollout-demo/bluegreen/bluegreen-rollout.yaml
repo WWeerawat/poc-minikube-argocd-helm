@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: my-app-nodeapp
+  labels:
+    app.kubernetes.io/instance: my-app
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: nodeapp
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: nodeapp-0.1.0
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: my-app
+      app.kubernetes.io/name: nodeapp
+  workloadRef: # Reference an existing Deployment using workloadRef field
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app-nodeapp
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: false
+      activeService: my-app-nodeapp
+      previewService: my-app-nodeapp-preview

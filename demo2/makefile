@@ -19,3 +19,5 @@ docker-build-and-push:
 	docker tag ${IMAGE_NAME}:latest 4weerawat/${IMAGE_NAME}:${APP_VERSION}
 	docker push 4weerawat/${IMAGE_NAME}:${APP_VERSION}
 
+apply-app1:
+	kubectl apply -f ./argo-app/app1.yaml

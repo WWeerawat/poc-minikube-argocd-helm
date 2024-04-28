@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: 4weerawat/k8s-cluster-info-app
+  repository: 4weerawat/k8s-cluster-info-node-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 1.0.0

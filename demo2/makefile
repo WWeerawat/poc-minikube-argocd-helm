@@ -13,7 +13,7 @@ argo-cd-get-secret:
 
 
 IMAGE_NAME=k8s-cluster-info-node-app
-APP_VERSION=1.0.2
+APP_VERSION=1.0.3
 docker-build-and-push:
 	docker build -f ./src/dockerfile -t ${IMAGE_NAME} ./src
 	docker tag ${IMAGE_NAME}:latest 4weerawat/${IMAGE_NAME}:${APP_VERSION}

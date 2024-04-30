@@ -1,0 +1,11 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/WWeerawat/poc-minikube-argocd-helm
+    targetRevision: demo1/nodeapp
+namespace: default
+project: default
+app:
+  name0: my-app-1
+  path0: my-app-1

@@ -69,7 +69,7 @@ resources:
     cpu: 4G
     memory: 512Mi
   requests:
-    cpu: 100m
+    cpu: 3G
     memory: 256Mi
 
 livenessProbe:
@@ -102,8 +102,8 @@ autoscaling:
     stabilizationWindowSeconds: 0
     selectPolicy: 'Max'
     pods: 1
-    percent: 100
-    periodSeconds: 60
+    percent: 5
+    periodSeconds: 10
   scaleDown:
     stabilizationWindowSeconds: 300
     selectPolicy: 'Min'

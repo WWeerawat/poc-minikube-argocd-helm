@@ -86,10 +86,10 @@ readinessProbe:
   httpGet:
     path: /readyz
     port: 3000
-  initialDelaySeconds: 0
-  periodSeconds: 10
+  initialDelaySeconds: 5
+  periodSeconds: 2
   timeoutSeconds: 6
-  failureThreshold: 3
+  failureThreshold: 1
   successThreshold: 1
 
 autoscaling:

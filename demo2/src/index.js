@@ -42,6 +42,20 @@ app.get('/toggle-health', (req, res) => {
   );
 });
 
+// Endpoint to generate high CPU load
+app.get('/cpu-load', (req, res) => {
+  console.log('Starting CPU load');
+  const startTime = Date.now();
+  while (Date.now() - startTime < 10000) {
+    // Run for 10 seconds
+    for (let i = 0; i < 1e7; i++) {
+      // Adjust this number for higher/lower CPU load
+      Math.sqrt(i);
+    }
+  }
+  res.send('CPU load complete');
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

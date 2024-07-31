@@ -94,10 +94,22 @@ readinessProbe:
 
 autoscaling:
   enabled: true
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 5
-  targetCPUUtilizationPercentage: 60
-  # targetMemoryUtilizationPercentage: 80
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 80
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    selectPolicy: 'Max'
+    pods: 1
+    percent: 100
+    periodSeconds: 60
+  scaleDown:
+    stabilizationWindowSeconds: 300
+    selectPolicy: 'Min'
+    pods: 1
+    percent: 50
+    periodSeconds: 60
 
 # Additional volumes on the output Deployment definition.
 volumes: []

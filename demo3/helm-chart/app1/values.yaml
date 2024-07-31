@@ -105,7 +105,7 @@ autoscaling:
     percent: 5
     periodSeconds: 10
   scaleDown:
-    stabilizationWindowSeconds: 300
+    stabilizationWindowSeconds: 30
     selectPolicy: 'Min'
     pods: 1
     percent: 50

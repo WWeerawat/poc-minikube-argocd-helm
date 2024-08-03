@@ -32,7 +32,7 @@ const BASIC_LOGGING = {
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      plugins: [BASIC_LOGGING],
+      plugins: [],
     }),
     HealthModule,
     GraphqlModule,

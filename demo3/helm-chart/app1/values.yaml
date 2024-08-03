@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: 4weerawat/nest-graphql-health
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: 0.0.2
 
@@ -74,15 +74,15 @@ resources:
 
 deployment:
   livenessProbe:
-    initialDelaySeconds: 5
-    periodSeconds: 2
-    timeoutSeconds: 1
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 5
     successThreshold: 1
     failureThreshold: 3
   readinessProbe:
     initialDelaySeconds: 10
-    periodSeconds: 2
-    timeoutSeconds: 6
+    periodSeconds: 5
+    timeoutSeconds: 5
     successThreshold: 1
     failureThreshold: 1
     memoryThreshold: 0.9 #1 is 100%

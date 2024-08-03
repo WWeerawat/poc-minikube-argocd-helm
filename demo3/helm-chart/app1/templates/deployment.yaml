@@ -42,16 +42,32 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
-            tcpSocket:
-              port: {{ .Values.service.port }}
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  httpResponseCode=$(curl -s -o /dev/null -w "%{http_code}"  "http://127.0.0.1:{{ .Values.service.port }}/health")
+                  apolloResponseCode=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:{{ .Values.service.port }}/.well-known/apollo/server-health")
+                  echo "Liveness: httpResponseCode ${httpResponseCode}">/proc/1/fd/1
+                  echo "Liveness: apolloResponseCode ${apolloResponseCode}">/proc/1/fd/1
+                  if [[ -z ${httpResponseCode} ]] || [[ ${httpResponseCode} != 200 ]] || [[ -z ${apolloResponseCode} ]] || [[ ${apolloResponseCode} != 200 ]]; then exit 1; fi
             initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.deployment.livenessProbe.timeoutSeconds }}
             successThreshold: {{ .Values.deployment.livenessProbe.successThreshold }}
             failureThreshold: {{ .Values.deployment.livenessProbe.failureThreshold }}
           readinessProbe:
-            tcpSocket:
-              port: {{ .Values.service.port }}
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  httpResponseCode=$(curl -s -o /dev/null -w "%{http_code}"  "http://127.0.0.1:{{ .Values.service.port }}/health")
+                  apolloResponseCode=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:{{ .Values.service.port }}/.well-known/apollo/server-health")
+                  echo "Liveness: httpResponseCode ${httpResponseCode}">/proc/1/fd/1
+                  echo "Liveness: apolloResponseCode ${apolloResponseCode}">/proc/1/fd/1
+                  if [[ -z ${httpResponseCode} ]] || [[ ${httpResponseCode} != 200 ]] || [[ -z ${apolloResponseCode} ]] || [[ ${apolloResponseCode} != 200 ]]; then exit 1; fi
             initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.deployment.readinessProbe.timeoutSeconds }}

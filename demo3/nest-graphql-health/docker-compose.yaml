@@ -1,0 +1,44 @@
+version: '3.5'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    command: /home/app/dist/main.js
+    # env_file:
+    #   - .env
+    # depends_on:
+    #   - mysql
+    #   - mongo
+    # volumes:
+    #   - './src:/home/app/src'
+
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: mysql-container
+  #   ports:
+  #     - '3306:3306'
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: spending
+  #     MYSQL_USER: my_user
+  #     MYSQL_PASSWORD: my_password
+  #     MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+  #   command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  #   volumes:
+  #     - './docker/db/data:/var/lib/mysql'
+  #     - './docker/db/my.cnf:/etc/mysql/conf.d/my.cnf'
+  #     - './docker/db/sql:/docker-entrypoint-initdb.d'
+
+  # mongo:
+  #   image: mongo:7
+  #   container_name: mongo-container
+  #   ports:
+  #     - '27017:27017'
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: mongo_user
+  #     MONGO_INITDB_ROOT_PASSWORD: mongo_password
+  #   volumes:
+  #     - ./docker/mongo/data:/data/db

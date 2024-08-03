@@ -12,10 +12,10 @@ argo-cd-get-secret:
 	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
 
-IMAGE_NAME=k8s-cluster-info-node-app
-APP_VERSION=1.0.9
+IMAGE_NAME=nest-graphql-health
+APP_VERSION=0.0.1
 docker-build-and-push:
-	docker build -f ./src/dockerfile -t ${IMAGE_NAME} ./src
+	docker build -f ./${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME} ./${IMAGE_NAME}
 	docker tag ${IMAGE_NAME}:latest 4weerawat/${IMAGE_NAME}:${APP_VERSION}
 	docker push 4weerawat/${IMAGE_NAME}:${APP_VERSION}
 

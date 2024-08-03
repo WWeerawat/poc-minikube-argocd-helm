@@ -69,7 +69,7 @@ resources:
     cpu: 1000m
     memory: 512Mi
   requests:
-    cpu: 400m
+    cpu: 50m
     memory: 256Mi
 
 livenessProbe:
@@ -105,11 +105,11 @@ autoscaling:
     percent: 5
     periodSeconds: 10
   scaleDown:
-    stabilizationWindowSeconds: 30
+    stabilizationWindowSeconds: 10
     selectPolicy: 'Min'
     pods: 1
     percent: 50
-    periodSeconds: 60
+    periodSeconds: 10
 
 # Additional volumes on the output Deployment definition.
 volumes: []

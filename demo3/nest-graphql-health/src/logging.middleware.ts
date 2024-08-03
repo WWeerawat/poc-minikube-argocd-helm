@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 export class LoggingMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const podName = process.env.POD_NAME || 'unknown-pod';
+    res.setHeader('X-Pod-Name', podName);
     console.log(`Pod ${podName} received a request`);
     next();
   }

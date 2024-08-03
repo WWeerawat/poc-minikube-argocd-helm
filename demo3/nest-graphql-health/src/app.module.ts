@@ -12,7 +12,6 @@ const BASIC_LOGGING = {
   requestDidStart(requestContext) {
     console.log('request started');
     console.log(requestContext.request.query);
-    console.log(requestContext.request.variables);
     return {
       didEncounterErrors(requestContext) {
         console.log(

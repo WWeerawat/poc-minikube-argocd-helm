@@ -46,6 +46,10 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "kill -s TERM 1; sleep 30"]
           livenessProbe:
             exec:
               command:

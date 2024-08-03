@@ -49,7 +49,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "kill -s TERM 1; sleep 30"]
+                command: ["/bin/sh", "-c", "sleep 40"]
           livenessProbe:
             exec:
               command:

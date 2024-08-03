@@ -13,7 +13,7 @@ argo-cd-get-secret:
 
 
 IMAGE_NAME=nest-graphql-health
-APP_VERSION=0.0.1
+APP_VERSION=0.0.2
 docker-build-and-push:
 	docker build -f ./${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME} ./${IMAGE_NAME}
 	docker tag ${IMAGE_NAME}:latest 4weerawat/${IMAGE_NAME}:${APP_VERSION}

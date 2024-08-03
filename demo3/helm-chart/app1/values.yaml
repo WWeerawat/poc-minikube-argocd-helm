@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: 4weerawat/nest-graphql-health
+  repository: 4weerawat/nest-new-gql
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 0.0.2
+  tag: 0.0.1
 
 imagePullSecrets: []
 nameOverride: ''

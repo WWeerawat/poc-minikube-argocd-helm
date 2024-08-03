@@ -72,25 +72,20 @@ resources:
     cpu: 100m
     memory: 256Mi
 
-livenessProbe:
-  httpGet:
-    path: /healthz
-    port: 3000
-  initialDelaySeconds: 0
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
-
-readinessProbe:
-  httpGet:
-    path: /readyz
-    port: 3000
-  initialDelaySeconds: 60
-  periodSeconds: 2
-  timeoutSeconds: 6
-  failureThreshold: 1
-  successThreshold: 1
+deployment:
+  livenessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 3
+  readinessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 1
+    timeoutSeconds: 6
+    successThreshold: 1
+    failureThreshold: 3
+    memoryThreshold: 0.9 #1 is 100%
 
 autoscaling:
   enabled: true

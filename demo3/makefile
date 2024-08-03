@@ -12,8 +12,11 @@ argo-cd-get-secret:
 	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
 
-IMAGE_NAME=nest-graphql-health
-APP_VERSION=0.0.2
+# IMAGE_NAME=nest-graphql-health
+# APP_VERSION=0.0.2
+
+IMAGE_NAME=nest-new-gql
+APP_VERSION=0.0.1
 docker-build-and-push:
 	docker build -f ./${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME} ./${IMAGE_NAME}
 	docker tag ${IMAGE_NAME}:latest 4weerawat/${IMAGE_NAME}:${APP_VERSION}

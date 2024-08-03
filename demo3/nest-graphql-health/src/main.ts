@@ -10,7 +10,7 @@ async function bootstrap() {
   signals.forEach((signal) => {
     process.on(signal, async () => {
       this.logger.log(`Received ${signal}. Shutting down gracefully...`);
-      await server.close();
+      await app.close();
       process.exit(0);
     });
   });

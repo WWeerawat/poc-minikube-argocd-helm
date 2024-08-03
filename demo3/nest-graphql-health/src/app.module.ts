@@ -7,6 +7,7 @@ import { HealthModule } from './health/health.module';
 import { GraphqlModule } from './graphql/graphql.module';
 import { MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { LoggingMiddleware } from './logging.middleware';
+import { ApolloServer } from 'apollo-server-express';
 
 const BASIC_LOGGING = {
   requestDidStart(requestContext) {
@@ -42,9 +43,16 @@ const BASIC_LOGGING = {
   providers: [AppService],
 })
 export class AppModule {
+  constructor(private readonly apolloServer: ApolloServer) {}
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggingMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+
+  async onModuleDestroy() {
+    console.log('Shutting down...');
+    await this.apolloServer.stop();
+    console.log('Apollo Server stopped.');
   }
 }

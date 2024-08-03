@@ -50,14 +50,8 @@ spec:
             successThreshold: {{ .Values.deployment.livenessProbe.successThreshold }}
             failureThreshold: {{ .Values.deployment.livenessProbe.failureThreshold }}
           readinessProbe:
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - |
-                  used=$(awk '{ print int($1/1.049e+6) }' /sys/fs/cgroup/memory/memory.usage_in_bytes);
-                  thresh=$(awk '{ print int( $1 / 1.049e+6 * {{ .Values.deployment.readinessProbe.memoryThreshold }} ) }' /sys/fs/cgroup/memory/memory.limit_in_bytes);
-                  if [[ ${used} -gt ${thresh} ]]; then exit 1; fi
+            tcpSocket:
+              port: {{ .Values.service.port }}
             initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.deployment.readinessProbe.timeoutSeconds }}

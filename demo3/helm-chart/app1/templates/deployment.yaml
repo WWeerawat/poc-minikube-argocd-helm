@@ -65,6 +65,8 @@ spec:
             failureThreshold: {{ .Values.deployment.readinessProbe.failureThreshold }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          command: ["node"]
+          args: ["{{ .Values.start }}"]
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}

@@ -74,21 +74,21 @@ resources:
 
 deployment:
   livenessProbe:
-    initialDelaySeconds: 10
+    initialDelaySeconds: 0
     periodSeconds: 10
-    timeoutSeconds: 5
+    timeoutSeconds: 1
     successThreshold: 1
     failureThreshold: 3
   readinessProbe:
-    initialDelaySeconds: 10
-    periodSeconds: 5
-    timeoutSeconds: 5
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 6
     successThreshold: 1
-    failureThreshold: 1
+    failureThreshold: 3
     memoryThreshold: 0.9 #1 is 100%
 
 autoscaling:
-  enabled: true
+  enabled: false
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 70

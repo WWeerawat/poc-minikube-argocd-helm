@@ -5,6 +5,8 @@ import { Query, Resolver } from '@nestjs/graphql';
 export class AppResolver {
   @Query(() => String)
   sayHello(): string {
+    setTimeout(() => {
+}, 1000);
     return 'Hello, World!';
   }
 }

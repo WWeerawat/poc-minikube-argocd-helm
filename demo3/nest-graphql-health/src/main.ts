@@ -6,15 +6,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const signals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM'];
-
-  signals.forEach((signal) => {
-    process.on(signal, async () => {
-      Logger.log(`Received ${signal}. Shutting down gracefully...`);
-      await app.close();
-      process.exit(0);
-    });
-  });
 
   await app.listen(3000);
   Logger.log(`Application is running on: ${await app.getUrl()}`);
